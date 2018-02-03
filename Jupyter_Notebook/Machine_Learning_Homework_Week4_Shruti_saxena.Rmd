@@ -236,6 +236,69 @@ lcl
 ucl
 ```
 
+```{r}
+####### Exercise 3 ########
+
+
+# Suppose we are studying growth patterns in children, at k particular ages. 
+# Denote the height of the ith child in our sample data at age j by Hij, with Hi = (Hi1,...,Hik)′ 
+# denoting the data for child i. Suppose the population distribution of each Hi is k-variate normal with 
+# mean vector μ and covariance matrix Σ. Say we are interested in successive differences in heights,
+# Dij =Hi,j+1−Hij, j=1,2,...,k−1. DefineDi =(Di1,...,Dik)′. Explain why each Di is (k−1)-variate normal, 
+# and derive matrix expressions for the mean vector and covariance matrices.
+
+# As intuitive as this problem sounds in terms of normality distribution. How it should flow automatically 
+# as the base data from which we are deriving these distributions is given as normal. I deep dived into 
+# this concept and found this explanation which may be able to explain and help with the required derivation
+
+# Disclaimer!! - Reference link are at the end of the solution and this is not an exact derivation since I could
+# get to one but an attempt to formulating one
+
+## Explanation 1 ##
+
+# Age is a continuous variable
+# Hi is k-variate normal distribution with mean vector μ and covariance matrix Σ 
+# Di is a normal distribution too 
+# Each element in Di is a difference of two elements (ages) in Hi which makes the total no of elements in Di as k-1
+# This makes Di a k-variate normal distribution
+
+# Also, if X1, X2, ··· + Xn are n random variables then
+# E(X1 + X2 + ··· + Xn) = E(X1) + E(X2) + ...E(Xn) ----- from below reference
+# If X1, X2,...Xn are n independent random variables then
+# V (X1 + X2 + ··· + Xn) = V (X1) + V (X2) + ··· + V (Xn)
+# where E is the expected value and V is the variance
+# Extending this, we can say
+# V (X1 ± X2 ±···± Xn) = V (X1) + V (X2) + ··· + V (Xn)
+# This explains the above k-variate normality of Di
+# Reference ! - http://www.personal.soton.ac.uk/jav/soton/HELM/workbooks/workbook_39/39_3_sum_diff_rndm_vars.pdf
+
+
+## Explanation 2 ##
+
+
+# U−V ∼ U+aV
+# U+aV ∼ (μU+aμV, σ2U+a2σ2V) 
+# (μU+aμV, σ2U+a2σ2V) = (μU−μV, σ2U+σ2V)
+# U−V ∼ U+aV ∼ N(μU+aμV, σU2+a2σV2)=N(μU−μV, σU2+σV2)
+
+# Reference ! - https://math.stackexchange.com/questions/917276/distribution-of-the-difference-of-two-normal-random-variables
+
+```
+
+```{r}
+####### Exercise 4 ########
+
+
+# simr2 <− function (n , p , nreps ) { r2s <− vector(length=nreps) for (i in 1:nreps) {
+# x <− matrix(rnorm(n∗p),ncol=p)
+# y <− x %∗% rep(1,p) + rnorm(n,sd=sqrt(p)) r2s[i] <− getr2(x,y)
+# }
+# hist ( r2s ) }
+# getr2 <− function(x,y) {
+#   smm <− summary(lm(y ∼ x)) smm$r . squared
+# }
+```
+
 Add a new chunk by clicking the *Insert Chunk* button on the toolbar or by pressing *Cmd+Option+I*.
 
 When you save the notebook, an HTML file containing the code and output will be saved alongside it (click the *Preview* button or press *Cmd+Shift+K* to preview the HTML file).
